@@ -27,7 +27,7 @@ $routes->get('/logout', 'AuthController::logout');
 // 3. DASHBOARD
 // =======================================================================
 $routes->get('/dashboard', 'DashboardController::index');
-
+$routes->post('dashboard/update_availability', 'DashboardController::update_availability');
 
 // =======================================================================
 // 4. FITUR KONSULTASI (FASE 1 - 5)

@@ -42,8 +42,7 @@ class DashboardController extends BaseController
             // ==========================
             $model = new KonsultasiModel();
 
-            // Ambil SEMUA data konsultasi, JOIN dengan tabel user untuk dapat nama klien
-            // Urutkan dari yang terbaru
+            // Ambil SEMUA data konsultasi
             $data['pengajuan'] = $model->select('konsultasi.*, user.nama as nama_klien, user.no_telp')
                 ->join('user', 'user.id_user = konsultasi.id_user')
                 ->orderBy('konsultasi.created_at', 'DESC')
@@ -56,13 +55,17 @@ class DashboardController extends BaseController
             return view('dashboard/secretary_dashboard', $data);
         } elseif ($role == 'lawyer') {
             // ==========================
-            // LOGIKA LAWYER
+            // LOGIKA LAWYER (SUDAH DIPERBAIKI)
             // ==========================
             $model = new KonsultasiModel();
             $userModel = new UserModel();
 
-            // Ambil Detail Lawyer (Untuk dapat No BAS)
+            // Ambil Detail Lawyer (Untuk dapat No BAS & Status Available)
             $lawyerDetail = $userModel->find($idUser);
+
+            // [PERBAIKAN UTAMA DISINI]
+            // Mengirim data lawyer ke view agar variabel $user dikenali
+            $data['user'] = $lawyerDetail;
 
             // Cek Safety: Jika data lawyer rusak/tidak punya BAS
             if (!$lawyerDetail || empty($lawyerDetail['no_bas'])) {
@@ -72,7 +75,6 @@ class DashboardController extends BaseController
             }
 
             // A. TUGAS BARU (Permintaan Konfirmasi Jadwal)
-            // Status: 'waiting_lawyer'
             $data['tugas_baru'] = $model->select('konsultasi.*, user.nama as nama_klien')
                 ->join('user', 'user.id_user = konsultasi.id_user')
                 ->where('konsultasi.no_bas', $myBas)
@@ -80,13 +82,9 @@ class DashboardController extends BaseController
                 ->findAll();
 
             // B. JADWAL AKTIF (Siap Dieksekusi)
-            // PERBAIKAN PENTING:
-            // 1. Hanya ambil yang statusnya 'approved' (SUDAH BAYAR).
-            // 2. Jangan tampilkan 'waiting_payment' agar lawyer tidak kerja duluan.
             $data['jadwal_aktif'] = $model->select('konsultasi.*, user.nama as nama_klien')
                 ->join('user', 'user.id_user = konsultasi.id_user')
                 ->where('konsultasi.no_bas', $myBas)
-                // KITA KEMBALIKAN 'waiting_payment' AGAR LAWYER BISA PANTAU TAGIHAN
                 ->whereIn('konsultasi.status', ['waiting_payment', 'approved'])
                 ->orderBy('konsultasi.tanggal_fiksasi', 'ASC')
                 ->findAll();
@@ -94,7 +92,7 @@ class DashboardController extends BaseController
             return view('dashboard/lawyer_dashboard', $data);
         } elseif ($role == 'ketua firma') {
             // ==========================
-            // LOGIKA KETUA FIRMA (STATISTIK)
+            // LOGIKA KETUA FIRMA
             // ==========================
             $konsultasiModel = new KonsultasiModel();
             $userModel = new UserModel();
@@ -112,9 +110,7 @@ class DashboardController extends BaseController
             $data['total_klien'] = $userModel->where('role', 'client')->countAllResults();
             $data['total_lawyer'] = $userModel->where('role', 'lawyer')->countAllResults();
 
-            // 2. DATA UNTUK GRAFIK (PERBAIKAN)
-            // Menggunakan COALESCE: Jika updated_at NULL, pakai created_at
-            // Filter tahun DIHAPUS sementara agar semua data muncul di grafik
+            // 2. DATA UNTUK GRAFIK
             $queryGrafik = $db->query("
                 SELECT 
                     MONTH(COALESCE(k.updated_at, k.created_at)) as bulan, 
@@ -125,10 +121,8 @@ class DashboardController extends BaseController
                 GROUP BY MONTH(COALESCE(k.updated_at, k.created_at))
             ");
 
-            // Format data bulan 1-12
             $grafikData = array_fill(1, 12, 0);
             foreach ($queryGrafik->getResultArray() as $row) {
-                // Pastikan bulan valid (1-12)
                 $bulan = (int)$row['bulan'];
                 if ($bulan >= 1 && $bulan <= 12) {
                     $grafikData[$bulan] = (int)$row['total'];
@@ -140,5 +134,36 @@ class DashboardController extends BaseController
         } else {
             return view('dashboard/index');
         }
+    }
+
+    // ==========================================
+    // FITUR TAMBAHAN: UPDATE STATUS LAWYER
+    // ==========================================
+    public function update_availability()
+    {
+        // 1. Pastikan yang akses adalah Lawyer
+        if (session()->get('role') != 'lawyer') {
+            return redirect()->to('/dashboard');
+        }
+
+        $userModel = new UserModel();
+        $idUser = session()->get('id_user');
+
+        // 2. Ambil status saat ini
+        $currentUser = $userModel->find($idUser);
+        $currentStatus = $currentUser['available'];
+
+        // 3. Balik Statusnya (Toggle)
+        // Jika 1 (Available) ubah jadi 0 (Cuti), dan sebaliknya
+        $newStatus = ($currentStatus == 1) ? 0 : 1;
+
+        // 4. Update ke Database
+        $userModel->update($idUser, ['available' => $newStatus]);
+
+        // 5. Beri Notifikasi
+        $statusText = ($newStatus == 1) ? 'Sekarang Anda ONLINE (Siap terima kasus)' : 'Sekarang Anda CUTI (Tidak menerima kasus baru)';
+        session()->setFlashdata('message', $statusText);
+
+        return redirect()->to('/dashboard');
     }
 }

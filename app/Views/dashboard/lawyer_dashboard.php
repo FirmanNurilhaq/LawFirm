@@ -38,6 +38,52 @@
 
     <div class="container mx-auto px-6 py-8">
 
+        <?php if (session()->getFlashdata('message')): ?>
+            <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-6 rounded shadow-sm flex justify-between items-center">
+                <div>
+                    <p class="font-bold">Info</p>
+                    <p><?= session()->getFlashdata('message') ?></p>
+                </div>
+                <button onclick="this.parentElement.remove()" class="text-blue-500 hover:text-blue-700"><i class="fa-solid fa-times"></i></button>
+            </div>
+        <?php endif; ?>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
+
+            <div class="flex items-center gap-4">
+                <?php if ($user['available'] == 1): ?>
+                    <div class="bg-green-100 text-green-600 p-4 rounded-full animate-pulse">
+                        <i class="fa-solid fa-wifi text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">Status: AVAILABLE (Aktif)</h2>
+                        <p class="text-sm text-gray-500">Anda sedang <span class="text-green-600 font-bold">Online</span>. Klien dapat memilih Anda untuk konsultasi baru.</p>
+                    </div>
+                <?php else: ?>
+                    <div class="bg-gray-100 text-gray-500 p-4 rounded-full">
+                        <i class="fa-solid fa-bed text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">Status: CUTI / SIBUK</h2>
+                        <p class="text-sm text-gray-500">Anda sedang <span class="text-red-500 font-bold">Offline</span>. Nama Anda disembunyikan dari daftar pencarian klien.</p>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <div>
+                <form action="<?= base_url('dashboard/update_availability') ?>" method="post">
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" name="status" value="1" class="sr-only peer" onchange="this.form.submit()" <?= ($user['available'] == 1) ? 'checked' : '' ?>>
+
+                        <div class="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-green-600"></div>
+
+                        <span class="ml-3 text-sm font-medium text-gray-900">
+                            <?= ($user['available'] == 1) ? 'Ubah ke Cuti' : 'Ubah ke Aktif' ?>
+                        </span>
+                    </label>
+                </form>
+            </div>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <a href="<?= base_url('kasus') ?>" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex items-center gap-4 hover:shadow-md transition hover:border-amber-400 group">
                 <div class="bg-amber-100 text-amber-600 w-12 h-12 rounded-full flex items-center justify-center text-xl group-hover:bg-amber-600 group-hover:text-white transition">

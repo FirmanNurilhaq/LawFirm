@@ -91,38 +91,47 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
             <div class="bg-white p-6 rounded-xl shadow-md lg:col-span-2">
                 <h3 class="font-bold text-lg mb-4 text-slate-700">Grafik Pendapatan Tahun Ini</h3>
                 <canvas id="incomeChart" height="150"></canvas>
             </div>
 
-            <div class="bg-slate-800 text-white p-6 rounded-xl shadow-md">
-                <h3 class="font-bold text-lg mb-4 text-amber-400">Informasi Sistem</h3>
-                <ul class="space-y-4 text-sm">
-                    <li class="flex justify-between border-b border-slate-700 pb-2">
-                        <span>Server Status</span>
-                        <span class="text-green-400 font-bold">Online 🟢</span>
-                    </li>
-                    <li class="flex justify-between border-b border-slate-700 pb-2">
-                        <span>Database</span>
-                        <span class="text-blue-400 font-bold">Connected</span>
-                    </li>
-                    <li class="flex justify-between border-b border-slate-700 pb-2">
-                        <span>Versi Aplikasi</span>
-                        <span class="text-gray-400">v1.0.0 (Stable)</span>
-                    </li>
-                    <li class="flex justify-between pt-2">
-                        <span>Tanggal Server</span>
-                        <span><?= date('d M Y') ?></span>
-                    </li>
-                </ul>
+            <div class="bg-slate-800 text-white p-6 rounded-xl shadow-md flex flex-col justify-between">
+                <div>
+                    <h3 class="font-bold text-lg mb-4 text-amber-400">Informasi Sistem</h3>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex justify-between border-b border-slate-700 pb-2">
+                            <span>Server Status</span>
+                            <span class="text-green-400 font-bold">Online 🟢</span>
+                        </li>
+                        <li class="flex justify-between border-b border-slate-700 pb-2">
+                            <span>Database</span>
+                            <span class="text-blue-400 font-bold">Connected</span>
+                        </li>
+                        <li class="flex justify-between border-b border-slate-700 pb-2">
+                            <span>Versi Aplikasi</span>
+                            <span class="text-gray-400">v1.0.0 (Stable)</span>
+                        </li>
+                        <li class="flex justify-between pt-2">
+                            <span>Tanggal Server</span>
+                            <span><?= date('d M Y') ?></span>
+                        </li>
+                    </ul>
+                </div>
 
                 <div class="mt-8 p-4 bg-slate-700 rounded-lg text-center">
-                    <p class="text-xs text-gray-400 mb-2">Butuh laporan detail?</p>
-                    <button disabled class="bg-gray-600 text-gray-400 px-4 py-2 rounded text-xs font-bold cursor-not-allowed">
-                        Hubungi Sekretaris
-                    </button>
+                    <p class="text-xs text-gray-400 mb-2">Akses Laporan & Arsip</p>
+
+                    <a href="<?= base_url('laporan/keuangan') ?>" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-xs font-bold block w-full transition mb-2 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-money-bill-wave"></i> Laporan Keuangan
+                    </a>
+
+                    <a href="<?= base_url('laporan/cetak') ?>" class="bg-gray-600 hover:bg-gray-500 text-white px-4 py-2 rounded text-xs font-bold block w-full transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-file-lines"></i> Laporan Aktivitas
+                    </a>
                 </div>
+
             </div>
         </div>
 
@@ -136,10 +145,7 @@
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
                 datasets: [{
                     label: 'Pendapatan (Rp)',
-
-                    // PERBAIKAN DISINI: Gunakan variabel $grafik_pendapatan
-                    data: <?= $grafik_pendapatan ?>,
-
+                    data: <?= $grafik_pendapatan ?>, // Data dari Controller
                     backgroundColor: 'rgba(245, 158, 11, 0.2)',
                     borderColor: 'rgba(245, 158, 11, 1)',
                     borderWidth: 2,
@@ -159,6 +165,11 @@
                         beginAtZero: true,
                         grid: {
                             borderDash: [2, 4]
+                        },
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return 'Rp ' + value.toLocaleString('id-ID');
+                            }
                         }
                     },
                     x: {

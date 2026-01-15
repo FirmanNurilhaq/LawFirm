@@ -664,3 +664,293 @@ DEBUG - 2026-01-15 11:32:30 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-01-15 11:32:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-01-15 11:32:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-01-15 11:34:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 11:54:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 11:54:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 11:54:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 11:54:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 11:54:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 11:55:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 11:55:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 11:55:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 11:55:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:21:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:21:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:21:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:21:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-15 12:21:47 --> [DEPRECATED] strtoupper(): Passing null to parameter #1 ($string) of type string is deprecated in APPPATH\Views\laporan\cetak.php on line 103.
+ 1 APPPATH\Views\laporan\cetak.php(103): strtoupper(null)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\laporan\\cetak.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('laporan/cetak', [], true)
+ 5 APPPATH\Controllers\LaporanController.php(61): view('laporan/cetak', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LaporanController->cetak()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-15 12:22:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:22:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:22:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:22:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:22:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:22:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:22:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:22:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:22:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:22:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-15 12:22:40 --> [DEPRECATED] strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in APPPATH\Views\laporan\cetak.php on line 73.
+ 1 APPPATH\Views\laporan\cetak.php(73): strtotime(null)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\laporan\\cetak.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('laporan/cetak', [], true)
+ 5 APPPATH\Controllers\LaporanController.php(61): view('laporan/cetak', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LaporanController->cetak()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-15 12:22:40 --> [DEPRECATED] strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in APPPATH\Views\laporan\cetak.php on line 73.
+ 1 APPPATH\Views\laporan\cetak.php(73): strtotime(null)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\laporan\\cetak.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('laporan/cetak', [], true)
+ 5 APPPATH\Controllers\LaporanController.php(61): view('laporan/cetak', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LaporanController->cetak()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-15 12:22:40 --> [DEPRECATED] strtoupper(): Passing null to parameter #1 ($string) of type string is deprecated in APPPATH\Views\laporan\cetak.php on line 103.
+ 1 APPPATH\Views\laporan\cetak.php(103): strtoupper(null)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\laporan\\cetak.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('laporan/cetak', [], true)
+ 5 APPPATH\Controllers\LaporanController.php(61): view('laporan/cetak', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LaporanController->cetak()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-15 12:22:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:22:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:22:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:22:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:22:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-15 12:22:54 --> [DEPRECATED] strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in APPPATH\Views\laporan\cetak.php on line 73.
+ 1 APPPATH\Views\laporan\cetak.php(73): strtotime(null)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\laporan\\cetak.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('laporan/cetak', [], true)
+ 5 APPPATH\Controllers\LaporanController.php(61): view('laporan/cetak', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LaporanController->cetak()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-15 12:22:54 --> [DEPRECATED] strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in APPPATH\Views\laporan\cetak.php on line 73.
+ 1 APPPATH\Views\laporan\cetak.php(73): strtotime(null)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\laporan\\cetak.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('laporan/cetak', [], true)
+ 5 APPPATH\Controllers\LaporanController.php(61): view('laporan/cetak', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LaporanController->cetak()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-15 12:22:54 --> [DEPRECATED] strtoupper(): Passing null to parameter #1 ($string) of type string is deprecated in APPPATH\Views\laporan\cetak.php on line 103.
+ 1 APPPATH\Views\laporan\cetak.php(103): strtoupper(null)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\laporan\\cetak.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('laporan/cetak', [], true)
+ 5 APPPATH\Controllers\LaporanController.php(61): view('laporan/cetak', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LaporanController->cetak()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-15 12:23:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-15 12:23:02 --> [DEPRECATED] strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in APPPATH\Views\laporan\cetak.php on line 73.
+ 1 APPPATH\Views\laporan\cetak.php(73): strtotime(null)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\laporan\\cetak.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('laporan/cetak', [], true)
+ 5 APPPATH\Controllers\LaporanController.php(61): view('laporan/cetak', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LaporanController->cetak()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-15 12:23:02 --> [DEPRECATED] strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in APPPATH\Views\laporan\cetak.php on line 73.
+ 1 APPPATH\Views\laporan\cetak.php(73): strtotime(null)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\laporan\\cetak.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('laporan/cetak', [], true)
+ 5 APPPATH\Controllers\LaporanController.php(61): view('laporan/cetak', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LaporanController->cetak()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-15 12:23:02 --> [DEPRECATED] strtoupper(): Passing null to parameter #1 ($string) of type string is deprecated in APPPATH\Views\laporan\cetak.php on line 103.
+ 1 APPPATH\Views\laporan\cetak.php(103): strtoupper(null)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\laporan\\cetak.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('laporan/cetak', [], true)
+ 5 APPPATH\Controllers\LaporanController.php(61): view('laporan/cetak', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LaporanController->cetak()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-15 12:42:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:42:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:42:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:42:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:43:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:43:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:43:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:43:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:43:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2026-01-15 12:43:07 --> [DEPRECATED] strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in APPPATH\Views\laporan\cetak.php on line 73.
+ 1 APPPATH\Views\laporan\cetak.php(73): strtotime(null)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\laporan\\cetak.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('laporan/cetak', [], true)
+ 5 APPPATH\Controllers\LaporanController.php(64): view('laporan/cetak', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LaporanController->cetak()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-15 12:43:07 --> [DEPRECATED] strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in APPPATH\Views\laporan\cetak.php on line 73.
+ 1 APPPATH\Views\laporan\cetak.php(73): strtotime(null)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\laporan\\cetak.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('laporan/cetak', [], true)
+ 5 APPPATH\Controllers\LaporanController.php(64): view('laporan/cetak', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LaporanController->cetak()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2026-01-15 12:43:07 --> [DEPRECATED] strtoupper(): Passing null to parameter #1 ($string) of type string is deprecated in APPPATH\Views\laporan\cetak.php on line 103.
+ 1 APPPATH\Views\laporan\cetak.php(103): strtoupper(null)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\laporan\\cetak.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('laporan/cetak', [], true)
+ 5 APPPATH\Controllers\LaporanController.php(64): view('laporan/cetak', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LaporanController->cetak()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-15 12:43:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:43:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:43:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:49:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:49:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:49:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:49:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-01-15 12:49:17 --> ErrorException: Undefined variable $user
+[Method: GET, Route: dashboard]
+in APPPATH\Views\dashboard\lawyer_dashboard.php on line 54.
+ 1 APPPATH\Views\dashboard\lawyer_dashboard.php(54): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $user', 'C:\\xampp\\htdocs\\hukum\\app\\Views\\dashboard\\lawyer_dashboard.php', 54)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\dashboard\\lawyer_dashboard.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('dashboard/lawyer_dashboard', [], true)
+ 5 APPPATH\Controllers\DashboardController.php(94): view('dashboard/lawyer_dashboard', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-15 12:50:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-01-15 12:50:30 --> ErrorException: Undefined variable $user
+[Method: GET, Route: dashboard]
+in APPPATH\Views\dashboard\lawyer_dashboard.php on line 54.
+ 1 APPPATH\Views\dashboard\lawyer_dashboard.php(54): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $user', 'C:\\xampp\\htdocs\\hukum\\app\\Views\\dashboard\\lawyer_dashboard.php', 54)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\dashboard\\lawyer_dashboard.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('dashboard/lawyer_dashboard', [], true)
+ 5 APPPATH\Controllers\DashboardController.php(94): view('dashboard/lawyer_dashboard', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-15 12:50:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-01-15 12:50:31 --> ErrorException: Undefined variable $user
+[Method: GET, Route: dashboard]
+in APPPATH\Views\dashboard\lawyer_dashboard.php on line 54.
+ 1 APPPATH\Views\dashboard\lawyer_dashboard.php(54): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $user', 'C:\\xampp\\htdocs\\hukum\\app\\Views\\dashboard\\lawyer_dashboard.php', 54)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\dashboard\\lawyer_dashboard.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('dashboard/lawyer_dashboard', [], true)
+ 5 APPPATH\Controllers\DashboardController.php(94): view('dashboard/lawyer_dashboard', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-15 12:50:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-01-15 12:50:31 --> ErrorException: Undefined variable $user
+[Method: GET, Route: dashboard]
+in APPPATH\Views\dashboard\lawyer_dashboard.php on line 54.
+ 1 APPPATH\Views\dashboard\lawyer_dashboard.php(54): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $user', 'C:\\xampp\\htdocs\\hukum\\app\\Views\\dashboard\\lawyer_dashboard.php', 54)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\dashboard\\lawyer_dashboard.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('dashboard/lawyer_dashboard', [], true)
+ 5 APPPATH\Controllers\DashboardController.php(94): view('dashboard/lawyer_dashboard', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-15 12:50:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-01-15 12:50:45 --> ErrorException: Undefined variable $user
+[Method: GET, Route: dashboard]
+in APPPATH\Views\dashboard\lawyer_dashboard.php on line 54.
+ 1 APPPATH\Views\dashboard\lawyer_dashboard.php(54): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $user', 'C:\\xampp\\htdocs\\hukum\\app\\Views\\dashboard\\lawyer_dashboard.php', 54)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\hukum\\app\\Views\\dashboard\\lawyer_dashboard.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('dashboard/lawyer_dashboard', [], true)
+ 5 APPPATH\Controllers\DashboardController.php(94): view('dashboard/lawyer_dashboard', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-01-15 12:54:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:54:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:54:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:54:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:54:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:54:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:54:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:54:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:54:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:54:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:54:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:54:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:55:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:55:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-15 12:55:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
