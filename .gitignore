@@ -1,0 +1,23 @@
+# .gitignore CodeIgniter 4 Lengkap
+
+# --------------------------------------------------------------------
+# File Rahasia (JANGAN DIHAPUS DARI SINI)
+# --------------------------------------------------------------------
+.env
+/app/Config/Database.php
+/app/Config/Email.php
+/app/Config/Encryption.php
+
+# --------------------------------------------------------------------
+# Folder Sampah/Sementara (Agar Git Bersih)
+# --------------------------------------------------------------------
+/vendor/
+/writable/cache/
+/writable/debugbar/
+/writable/logs/
+/writable/session/
+/writable/uploads/
+/public/uploads/
+/.idea/
+/.vscode/
+/node_modules/
