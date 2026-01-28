@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\KonsultasiModel;
+use App\Models\UserModel; // Kita butuh UserModel untuk ambil email Sekretaris/Lawyer
 
 class KonsultasiController extends BaseController
 {
@@ -12,7 +13,13 @@ class KonsultasiController extends BaseController
     public function __construct()
     {
         $this->konsultasiModel = new KonsultasiModel();
+        // Load Helper Brevo yang baru dibuat
+        helper(['brevo', 'text']);
     }
+
+    // =================================================================
+    // FASE 1: PENGAJUAN (Klien)
+    // =================================================================
 
     public function ajukan()
     {
@@ -53,6 +60,7 @@ class KonsultasiController extends BaseController
             $fileDokumen->move('uploads/berkas', $namaFile);
         }
 
+        // Simpan Data
         $this->konsultasiModel->save([
             'id_user' => session()->get('id_user'),
             'jenis_perkara' => $this->request->getPost('judul'),
@@ -63,9 +71,36 @@ class KonsultasiController extends BaseController
             'status' => 'pending'
         ]);
 
+        // [EMAIL 1] NOTIFIKASI KE SEKRETARIS (Ada Pengajuan Baru)
+        $userModel = new UserModel();
+        // Ambil salah satu sekretaris aktif
+        $sekretaris = $userModel->where('role', 'sekretaris')->first();
+
+        if ($sekretaris) {
+            $namaKlien = session()->get('nama');
+            $judul = $this->request->getPost('judul');
+
+            $subject = "[INFO] Pengajuan Konsultasi Baru: $namaKlien";
+            $msg = "
+                <h3>Halo Sekretaris,</h3>
+                <p>Ada pengajuan konsultasi baru masuk ke sistem.</p>
+                <ul>
+                    <li><strong>Klien:</strong> $namaKlien</li>
+                    <li><strong>Perkara:</strong> $judul</li>
+                    <li><strong>Tanggal Usulan:</strong> " . $this->request->getPost('tanggal') . "</li>
+                </ul>
+                <p>Mohon segera login dan lakukan verifikasi.</p>
+            ";
+            send_email_brevo($sekretaris['email'], $sekretaris['nama'], $subject, $msg);
+        }
+
         session()->setFlashdata('success', 'Pengajuan berhasil dikirim! Menunggu verifikasi sekretaris.');
         return redirect()->to('/dashboard');
     }
+
+    // =================================================================
+    // FASE 2: VERIFIKASI (Sekretaris & Lawyer)
+    // =================================================================
 
     public function verifikasi($id_konsultasi)
     {
@@ -73,10 +108,9 @@ class KonsultasiController extends BaseController
             return redirect()->to('/dashboard');
         }
 
-        $konsultasiModel = new \App\Models\KonsultasiModel();
-        $userModel = new \App\Models\UserModel();
+        $userModel = new UserModel();
 
-        $dataKonsultasi = $konsultasiModel->select('konsultasi.*, user.nama as nama_klien, user.email, user.no_telp')
+        $dataKonsultasi = $this->konsultasiModel->select('konsultasi.*, user.nama as nama_klien, user.email, user.no_telp')
             ->join('user', 'user.id_user = konsultasi.id_user')
             ->where('konsultasi.id_konsultasi', $id_konsultasi)
             ->first();
@@ -85,6 +119,7 @@ class KonsultasiController extends BaseController
             return redirect()->to('/dashboard')->with('error', 'Data tidak ditemukan.');
         }
 
+        // Ambil Lawyer yang Available saja
         $lawyers = $userModel->where('role', 'lawyer')
             ->where('available', 1)
             ->findAll();
@@ -107,18 +142,42 @@ class KonsultasiController extends BaseController
         $action = $this->request->getPost('action');
 
         if ($action == 'reject') {
+            // Tolak
             $this->konsultasiModel->update($id_konsultasi, [
                 'status' => 'rejected',
                 'alasan_tolak' => $this->request->getPost('alasan_tolak')
             ]);
+
+            // Opsional: Email ke Klien kalau ditolak (Bisa ditambahkan sendiri)
+
             session()->setFlashdata('msg', 'Pengajuan telah ditolak.');
         } else {
+            // Approve & Teruskan ke Lawyer
+            $no_bas = $this->request->getPost('no_bas');
+
             $this->konsultasiModel->update($id_konsultasi, [
-                'no_bas' => $this->request->getPost('no_bas'),
+                'no_bas' => $no_bas,
                 'meeting' => $this->request->getPost('meeting'),
                 'tanggal_fiksasi' => $this->request->getPost('tanggal_fiksasi'),
                 'status' => 'waiting_lawyer'
             ]);
+
+            // [EMAIL 2] NOTIFIKASI KE LAWYER (Ada Tugas Baru)
+            $userModel = new UserModel();
+            $lawyer = $userModel->where('no_bas', $no_bas)->first();
+
+            if ($lawyer) {
+                $tgl = date('d M Y H:i', strtotime($this->request->getPost('tanggal_fiksasi')));
+                $subject = "[TUGAS] Konfirmasi Jadwal Konsultasi";
+                $msg = "
+                    <h3>Halo, {$lawyer['nama']}</h3>
+                    <p>Sekretaris telah meneruskan pengajuan konsultasi kepada Anda.</p>
+                    <p><strong>Jadwal Usulan:</strong> $tgl WIB</p>
+                    <p>Silakan login ke Dashboard untuk <strong>Menerima</strong> atau <strong>Meminta Reschedule</strong>.</p>
+                ";
+                send_email_brevo($lawyer['email'], $lawyer['nama'], $subject, $msg);
+            }
+
             session()->setFlashdata('success', 'Data diteruskan ke Lawyer untuk konfirmasi ketersediaan.');
         }
 
@@ -134,29 +193,64 @@ class KonsultasiController extends BaseController
         $id = $this->request->getPost('id_konsultasi');
         $keputusan = $this->request->getPost('keputusan');
 
+        // Ambil Data Konsultasi & Klien
+        $konsultasi = $this->konsultasiModel->select('konsultasi.*, user.nama as nama_klien, user.email as email_klien')
+            ->join('user', 'user.id_user = konsultasi.id_user')
+            ->find($id);
+
         if ($keputusan == 'confirm') {
+            // A. JIKA CONFIRM
             $this->konsultasiModel->update($id, ['status' => 'waiting_payment']);
-            session()->setFlashdata('success', 'Anda telah menyetujui jadwal. Menunggu pembayaran klien.');
+
+            // [EMAIL 3] NOTIFIKASI KE KLIEN (Suruh Bayar)
+            if ($konsultasi) {
+                $subject = "[PENTING] Jadwal Disetujui - Menunggu Pembayaran";
+                $msg = "
+                    <h3>Halo {$konsultasi['nama_klien']},</h3>
+                    <p>Kabar baik! Lawyer kami telah menyetujui jadwal konsultasi Anda.</p>
+                    <p>Langkah selanjutnya: <strong>Lakukan Pembayaran</strong> agar Anda mendapatkan link meeting/tiket akses.</p>
+                    <p>Silakan login ke aplikasi untuk melihat invoice.</p>
+                ";
+                send_email_brevo($konsultasi['email_klien'], $konsultasi['nama_klien'], $subject, $msg);
+            }
+
+            session()->setFlashdata('success', 'Anda menyetujui jadwal. Klien telah dinotifikasi untuk membayar.');
         } else {
+            // B. JIKA MINTA RESCHEDULE
             $this->konsultasiModel->update($id, ['status' => 'reschedule']);
-            session()->setFlashdata('msg', 'Permintaan reschedule dikirim ke Sekretaris.');
+
+            // [EMAIL 4] NOTIFIKASI KE SEKRETARIS (Lawyer Minta Ganti Waktu)
+            $userModel = new UserModel();
+            $sekretaris = $userModel->where('role', 'sekretaris')->first();
+            $namaLawyer = session()->get('nama'); // Nama Lawyer yg login
+
+            if ($sekretaris) {
+                $subject = "[ALERT] Lawyer Minta Reschedule: $namaLawyer";
+                $msg = "
+                    <h3>Halo Sekretaris,</h3>
+                    <p>Lawyer <strong>$namaLawyer</strong> tidak bisa menghadiri jadwal yang diajukan untuk klien <strong>{$konsultasi['nama_klien']}</strong>.</p>
+                    <p>Status konsultasi sekarang: <strong>RESCHEDULE</strong>.</p>
+                    <p>Mohon hubungi Lawyer/Klien untuk menentukan waktu baru, lalu update data di Dashboard Sekretaris.</p>
+                ";
+                send_email_brevo($sekretaris['email'], $sekretaris['nama'], $subject, $msg);
+            }
+
+            session()->setFlashdata('msg', 'Permintaan reschedule dikirim. Sekretaris akan dinotifikasi via Email.');
         }
 
         return redirect()->to('/dashboard');
     }
 
     // =================================================================
-    // FASE 3: PEMBAYARAN MIDTRANS (Disesuaikan dengan Gambar User)
+    // FASE 3: PEMBAYARAN MIDTRANS
     // =================================================================
 
     public function pembayaran($id_konsultasi)
     {
-        $model = new \App\Models\KonsultasiModel();
-
-        // Join ke tabel User (sebagai Klien) DAN User (sebagai Lawyer) untuk ambil harga
-        $data = $model->select('konsultasi.*, user.nama as nama_klien, user.email, user.no_telp, lawyer.harga_konsultasi as tarif_lawyer')
-            ->join('user', 'user.id_user = konsultasi.id_user') // Join Klien
-            ->join('user as lawyer', 'lawyer.no_bas = konsultasi.no_bas') // Join Lawyer via No BAS
+        // Join User (Klien) & Lawyer
+        $data = $this->konsultasiModel->select('konsultasi.*, user.nama as nama_klien, user.email, user.no_telp, lawyer.harga_konsultasi as tarif_lawyer')
+            ->join('user', 'user.id_user = konsultasi.id_user')
+            ->join('user as lawyer', 'lawyer.no_bas = konsultasi.no_bas')
             ->where('konsultasi.id_konsultasi', $id_konsultasi)
             ->where('konsultasi.id_user', session()->get('id_user'))
             ->first();
@@ -165,26 +259,15 @@ class KonsultasiController extends BaseController
             return redirect()->to('/dashboard')->with('error', 'Tagihan tidak valid.');
         }
 
-        // --- CONFIG ---
+        // Config Midtrans
         $serverKey = getenv('MIDTRANS_SERVER_KEY');
         $clientKey = getenv('MIDTRANS_CLIENT_KEY');
         $isProduction = false;
-
-        // PERUBAHAN DI SINI: Ambil harga dari database Lawyer
         $biaya = $data['tarif_lawyer'];
 
-        // --- PERBAIKAN DATA VALIDASI EMAIL ---
-        // 1. Hapus spasi di depan/belakang
-        $emailBersih = trim($data['email']);
-
-        // 2. Cek apakah format valid? Jika tidak, pakai email dummy agar tidak error
-        if (!filter_var($emailBersih, FILTER_VALIDATE_EMAIL)) {
-            $emailBersih = "customer@demo.com"; // Fallback email
-        }
-
-        // 3. Pastikan No Telp tidak kosong
+        // Validasi Data Midtrans
+        $emailBersih = filter_var(trim($data['email']), FILTER_VALIDATE_EMAIL) ? trim($data['email']) : "customer@demo.com";
         $phoneBersih = empty($data['no_telp']) ? '08123456789' : trim($data['no_telp']);
-        // -------------------------------------
 
         $params = [
             'transaction_details' => [
@@ -193,7 +276,7 @@ class KonsultasiController extends BaseController
             ],
             'customer_details' => [
                 'first_name' => $data['nama_klien'],
-                'email'      => $emailBersih, // Gunakan variabel yang sudah dibersihkan
+                'email'      => $emailBersih,
                 'phone'      => $phoneBersih,
             ],
             'item_details' => [
@@ -209,7 +292,7 @@ class KonsultasiController extends BaseController
             ]
         ];
 
-        // Request Token
+        // Get Token
         $snapToken = $this->_getMidtransToken($params, $serverKey, $isProduction);
 
         if (!$snapToken) {
@@ -241,32 +324,19 @@ class KonsultasiController extends BaseController
             'Authorization: Basic ' . base64_encode($serverKey . ':')
         ]);
 
-        // --- BYPASS SSL UNTUK LOCALHOST ---
+        // Bypass SSL Localhost
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
         $result = curl_exec($ch);
-
-        if (curl_errno($ch)) {
-            die('<h2>Error Koneksi cURL</h2>Pesan: ' . curl_error($ch));
-        }
         curl_close($ch);
 
         $response = json_decode($result, true);
 
-        // TAMPILKAN ERROR JIKA ADA
+        // Error Handling Sederhana
         if (isset($response['error_messages'])) {
-            echo '<div style="background:#ffcccc; padding:20px; border:1px solid red;">';
-            echo '<h2>Midtrans Error!</h2>';
-            echo '<p>Midtrans menolak kunci Anda. Ini detailnya:</p>';
-            echo '<pre>';
-            print_r($response['error_messages']);
-            echo '</pre>';
-            echo '<hr>';
-            echo '<p><b>Solusi:</b> Kunci Anda (Mid-server...) dianggap kunci Production oleh sistem, tapi kita mencoba akses URL Sandbox.</p>';
-            echo '<p>Silakan kembali ke Dashboard Midtrans, lihat bagian bawah ada tombol biru <b>"Start generate credential"</b> (Payment BI SNAP). Klik tombol itu untuk generate kunci SNAP baru.</p>';
-            echo '</div>';
-            die();
+            // Bisa return null dan handle di fungsi utama
+            return null;
         }
 
         return $response['token'] ?? null;
@@ -276,46 +346,61 @@ class KonsultasiController extends BaseController
     {
         $id = $this->request->getGet('id');
         $this->konsultasiModel->update($id, ['status' => 'approved']);
-        session()->setFlashdata('success', 'Pembayaran Berhasil! Jadwal Konsultasi telah aktif.');
+
+        // [EMAIL 5] NOTIFIKASI TIKET KE KLIEN (Lunas)
+        $data = $this->konsultasiModel->select('konsultasi.*, user.nama as nama_klien, user.email as email_klien')
+            ->join('user', 'user.id_user = konsultasi.id_user')
+            ->find($id);
+
+        if ($data) {
+            $linkTiket = base_url('konsultasi/tiket/' . $id);
+            $subject = "[LUNAS] Pembayaran Berhasil - Konsultasi Aktif";
+            $msg = "
+                <h3>Pembayaran Diterima!</h3>
+                <p>Halo {$data['nama_klien']}, pembayaran Anda telah kami terima.</p>
+                <p>Silakan klik link di bawah ini untuk melihat <strong>TIKET AKSES</strong> Anda:</p>
+                <p><a href='$linkTiket' style='background-color:#4CAF50; color:white; padding:10px 20px; text-decoration:none;'>LIHAT TIKET</a></p>
+                <p>Mohon hadir tepat waktu.</p>
+            ";
+            send_email_brevo($data['email_klien'], $data['nama_klien'], $subject, $msg);
+        }
+
+        session()->setFlashdata('success', 'Pembayaran Berhasil! Tiket akses telah dikirim via Email.');
         return redirect()->to('/dashboard');
     }
+
+    // =================================================================
+    // FASE 4: TIKET & SELESAI
+    // =================================================================
+
     public function tiket($id_konsultasi)
     {
-        $model = new \App\Models\KonsultasiModel();
-
-        // Ambil data konsultasi yang sudah Approved
-        $data = $model->select('konsultasi.*, user.nama as nama_lawyer, user.spesialisasi')
-            ->join('user', 'user.no_bas = konsultasi.no_bas', 'left') // Join ke Lawyer
+        $data = $this->konsultasiModel->select('konsultasi.*, user.nama as nama_lawyer, user.spesialisasi')
+            ->join('user', 'user.no_bas = konsultasi.no_bas', 'left')
             ->where('konsultasi.id_konsultasi', $id_konsultasi)
-            ->where('konsultasi.id_user', session()->get('id_user')) // Pastikan milik user yang login
+            ->where('konsultasi.id_user', session()->get('id_user'))
             ->first();
 
-        // Validasi: Hanya boleh lihat tiket jika status APPROVED atau COMPLETED
         if (!$data || !in_array($data['status'], ['approved', 'completed'])) {
-            return redirect()->to('/dashboard')->with('error', 'Tiket belum tersedia atau belum dibayar.');
+            return redirect()->to('/dashboard')->with('error', 'Tiket belum tersedia.');
         }
 
         return view('konsultasi/tiket_akses', ['k' => $data]);
     }
 
-    // 2. Lawyer Menandai Selesai (Finish Session)
     public function selesai($id_konsultasi)
     {
-        // 1. Cek Login & Role
         if (session()->get('role') != 'lawyer') {
             return redirect()->to('/dashboard');
         }
 
-        $model = new KonsultasiModel();
+        // Update status konsultasi
+        $this->konsultasiModel->update($id_konsultasi, ['status' => 'completed']);
 
-        // 2. Update Status Konsultasi Jadi 'completed'
-        $model->update($id_konsultasi, ['status' => 'completed']);
-
-        // 3. Inisialisasi Data di Tabel Kasus (Agar Timeline Klien tidak kosong)
+        // Generate data awal di tabel Kasus
         $kasusModel = new \App\Models\KasusModel();
-
-        // Cek dulu biar gak duplikat
         $cek = $kasusModel->where('id_konsultasi', $id_konsultasi)->first();
+
         if (!$cek) {
             $kasusModel->save([
                 'id_konsultasi' => $id_konsultasi,
@@ -327,6 +412,6 @@ class KonsultasiController extends BaseController
             ]);
         }
 
-        return redirect()->to('/dashboard')->with('success', 'Sesi selesai! Kasus kini masuk ke menu Manajemen Kasus.');
+        return redirect()->to('/dashboard')->with('success', 'Sesi selesai! Kasus masuk ke monitoring.');
     }
 }

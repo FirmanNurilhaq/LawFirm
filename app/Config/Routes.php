@@ -47,8 +47,11 @@ $routes->group('konsultasi', function ($routes) {
     $routes->get('finish-payment', 'KonsultasiController::finishPayment');
 
     // Fase 5: Pelaksanaan & Selesai
-    $routes->get('tiket/(:num)', 'KonsultasiController::tiket/$1');
 
+    // GANTI (:num) MENJADI (:segment) AGAR BISA BACA KODE STRING
+    $routes->get('tiket/(:segment)', 'KonsultasiController::tiket/$1');
+
+    $routes->get('selesai/(:num)', 'KonsultasiController::selesai/$1');
     // --- PERBAIKAN DI SINI (Gunakan GET dan parameter NUM) ---
     $routes->get('selesai/(:num)', 'KonsultasiController::selesai/$1');
 });

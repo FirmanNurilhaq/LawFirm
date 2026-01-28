@@ -142,7 +142,8 @@
                                             'waiting_payment' => 'bg-orange-100 text-orange-800', // Tambahan status baru
                                             'approved' => 'bg-blue-100 text-blue-800',
                                             'rejected' => 'bg-red-100 text-red-800',
-                                            'completed' => 'bg-green-100 text-green-800'
+                                            'completed' => 'bg-green-100 text-green-800',
+                                            'reschedule' => 'bg-pink-100 text-pink-800 border border-pink-200'
                                         ];
                                         $badges = $statusClass[$row['status']] ?? 'bg-gray-100 text-gray-800';
 
@@ -153,7 +154,8 @@
                                             'waiting_payment' => 'Tunggu Bayar',
                                             'approved' => 'Terjadwal',
                                             'rejected' => 'Ditolak',
-                                            'completed' => 'Selesai'
+                                            'completed' => 'Selesai',
+                                            'reschedule' => 'Jadwal Ulang'
                                         ];
                                         $textLabel = $labels[$row['status']] ?? $row['status'];
                                         ?>
@@ -166,10 +168,22 @@
                                             <button onclick="openModalVerification(<?= $row['id_konsultasi'] ?>, '<?= $row['nama_klien'] ?>')" class="bg-slate-800 hover:bg-slate-900 text-white px-3 py-2 rounded-md text-xs font-bold shadow-md transition transform hover:scale-105">
                                                 <i class="fa-solid fa-gavel"></i> Proses
                                             </button>
+
+                                        <?php elseif ($row['status'] == 'reschedule'): ?>
+                                            <div class="flex flex-col gap-1">
+                                                <span class="text-[10px] font-bold text-red-600 bg-red-50 px-2 py-1 rounded border border-red-100 uppercase tracking-wide mb-1">
+                                                    <i class="fa-solid fa-clock-rotate-left"></i> Minta Jadwal Baru
+                                                </span>
+                                                <button onclick="openModalVerification(<?= $row['id_konsultasi'] ?>, '<?= $row['nama_klien'] ?>')" class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-2 rounded-md text-xs font-bold shadow-md transition transform hover:scale-105">
+                                                    <i class="fa-solid fa-calendar-days"></i> Atur Ulang
+                                                </button>
+                                            </div>
+
                                         <?php elseif ($row['status'] == 'completed'): ?>
                                             <button class="text-green-600 font-bold text-xs" disabled>
                                                 <i class="fa-solid fa-check-double"></i> Tuntas
                                             </button>
+
                                         <?php else: ?>
                                             <span class="text-gray-400 text-xs italic">Dalam Proses</span>
                                         <?php endif; ?>
